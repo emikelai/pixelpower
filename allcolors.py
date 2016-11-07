@@ -15,39 +15,39 @@ def color_mode(bpp_value):
 
 def main():
 
-	width = 7 #width of generated image in pixels
-	height = 7 #height of generated image in pixels
-	bpp = 8	#bits per pixel, choose either 1 for B/W, 8 for grayscale, 24 for truecolor
+	width = 3 #width of generated image in pixels
+	height = 3 #height of generated image in pixels
+	bpp = 1	#bits per pixel, choose either 1 for B/W, 8 for grayscale, 24 for truecolor
 
 	#bpp_str = str(bpp) #convert integer to string for use in Image.new
-	#im = Image.new(bpp_str, (width,height))	#create new 7x7pixel image
-	im = Image.new(color_mode(bpp), (width,height))	#create new 7x7pixel image
+	#im = Image.new(bpp_str, (width,height))	#create new width x heightpixel image
+	im = Image.new(color_mode(bpp), (width,height))	#create new width x heightpixel image
 	print("Image size: ")
 	print (im.size)	#print dimensions of image onto screen
-	im.save('7x7.png','png')	#save 7x7 
+	im.save('%sx%s.png' % (width, height),'png')	#save width x height 
 
-	im7x7 = Image.open("7x7.png")	#open 7x7 pixel image
-	pix = im7x7.load()	#load image for manipulation
+	im = Image.open("%sx%s.png" % (width,height))	#open width x height pixel image
+	pix = im.load()	#load image for manipulation
 	i=0
 	j=0
 	max_rand_number = 2**bpp
 	print ("max_rand_number: %d" % max_rand_number)
-	for i in range(0,height):	#for loop to insert one of each color per pixel for a 7x7 box with 
+	for i in range(0,height):	#for loop to insert one of each color per pixel for a width x height box with 
 							#256 unique pixel colors
 		for j in range(0,width):
 			#print("16*1+j: %d" % (16*i+j))
 			pix[j,i] = randint(0, max_rand_number)
 			#print("pixel value: %d" % (16*i+j))
 
-	im7x7.save('all2colors7x7img.png','png')
-	print("Generated image: all2colors7x7img.png")
-	# generated_image = Image.open('all2colors7x7img.png')
+	im.save('all2colors%sx%simg.png' % (width, height),'png')
+	print("Generated image: all2colors%sx%simg.png" % (width, height))
+	# generated_image = Image.open('all2colorswidth x heightimg.png')
 	# im = generated_image.load()
 	# im.show()
 
 	#no need to convert to grayscale with two lines below because image created is of type 'L'
-	#convertedBWimage = Image.open("all256colors7x7img.png").convert("L")
-	#convertedBWimage.save('all256colors7x7imgBW.png','png')
+	#convertedBWimage = Image.open("all256colorswidth x heightimg.png").convert("L")
+	#convertedBWimage.save('all256colorswidth x heightimgBW.png','png')
 
 if __name__ == "__main__":
 	main()
