@@ -6,6 +6,8 @@
 from PIL import Image
 from random import randint
 from collections import Counter
+import random
+
 
 def rgb_int2tuple(rgbint):
     #return (rgbint // 256 // 256 % 256, rgbint // 256 % 256, rgbint % 256)
@@ -87,11 +89,16 @@ def main():
 	j=0
 	max_rand_number = 2**bpp	#define upper end of range that each pixel can have
 	print ("max_rand_number: %d" % max_rand_number)
+	
+	src_pixel_and_cnt_list = return_num_pixel_values(4,'test_images/allcolors3x3.png') #will return a list of tuples containing most common pixel colors in source image
+																			   #and the number of occurences of that pixel list
+	src_pixel_list = [i[0] for i in src_pixel_and_cnt_list]	#obtain just the pixel values and create list
+	#print(src_pixel_list)
 	for i in range(0,height):	#for loop to insert one of each color per pixel for a width x height box with 
 							#256 unique pixel colors
 		for j in range(0,width):
 			#print("16*1+j: %d" % (16*i+j))
-			pix[j,i] = rgb_int2tuple(15635330)#randint(0,max_rand_number)#(0,36,244)#randint(0, max_rand_number) #populate each pixel in the picture
+			pix[j,i] = random.choice(src_pixel_list)#randint(0,max_rand_number)#(0,36,244)#randint(0, max_rand_number) #populate each pixel in the picture
 			print("pixel value printed in main(): {}".format(pix[j,i]))
 			#print("pixel value: %d" % (16*i+j))
 
