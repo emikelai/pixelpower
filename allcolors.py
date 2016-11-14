@@ -72,8 +72,8 @@ def color_mode(bpp_value):
 
 def main():
 
-	width = 3 #width of generated image in pixels
-	height = 3 #height of generated image in pixels
+	width = 300 #width of generated image in pixels
+	height = 300 #height of generated image in pixels
 	bpp = 24	#bits per pixel, choose either 1 for B/W, 8 for grayscale, 24 for truecolor
 
 	#bpp_str = str(bpp) #convert integer to string for use in Image.new
@@ -90,23 +90,18 @@ def main():
 	max_rand_number = 2**bpp	#define upper end of range that each pixel can have
 	print ("max_rand_number: %d" % max_rand_number)
 	
-	src_pixel_and_cnt_list = return_num_pixel_values(4,'test_images/allcolors3x3.png') #will return a list of tuples containing most common pixel colors in source image
+	src_pixel_and_cnt_list = return_num_pixel_values(100,'homer.jpg') #will return a list of tuples containing most common pixel colors in source image
 																			   #and the number of occurences of that pixel list
 	src_pixel_list = [i[0] for i in src_pixel_and_cnt_list]	#obtain just the pixel values and create list
 	#print(src_pixel_list)
 	for i in range(0,height):	#for loop to insert one of each color per pixel for a width x height box with 
 							#256 unique pixel colors
 		for j in range(0,width):
-			#print("16*1+j: %d" % (16*i+j))
-			pix[j,i] = random.choice(src_pixel_list)#randint(0,max_rand_number)#(0,36,244)#randint(0, max_rand_number) #populate each pixel in the picture
-			print("pixel value printed in main(): {}".format(pix[j,i]))
-			#print("pixel value: %d" % (16*i+j))
+			pix[j,i] = rgb_int2tuple(random.choice(src_pixel_list))#randint(0,max_rand_number)#(0,36,244)#randint(0, max_rand_number) #populate each pixel in the picture
+			#print("pixel value printed in main(): {}".format(pix[j,i]))
 
 	im.save('all2colors%sx%simg.png' % (width, height),'png')
 	print("Generated image: all2colors%sx%simg.png" % (width, height))
-	# generated_image = Image.open('all2colorswidth x heightimg.png')
-	# im = generated_image.load()
-	# im.show()
 
 	#no need to convert to grayscale with two lines below because image created is of type 'L'
 	#convertedBWimage = Image.open("all256colorswidth x heightimg.png").convert("L")
